@@ -1,0 +1,63 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.clevertap.demo"
+        minSdk 26
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    implementation 'com.clevertap.android:clevertap-android-sdk:4.2.0'
+    implementation 'com.google.firebase:firebase-messaging:23.0.5'
+    implementation 'androidx.core:core:1.8.0'
+    implementation 'com.android.installreferrer:installreferrer:2.2'
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    implementation "com.google.android.exoplayer:exoplayer:2.11.5"
+    implementation "com.google.android.exoplayer:exoplayer-hls:2.11.5"
+    implementation "com.google.android.exoplayer:exoplayer-ui:2.11.5"
+
+    implementation "com.google.android.exoplayer:exoplayer-core:2.11.5"
+    implementation "com.google.android.exoplayer:exoplayer-dash:2.11.5"
+}
+apply plugin: 'com.google.gms.google-services'
