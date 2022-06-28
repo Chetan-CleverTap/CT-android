@@ -33,6 +33,6 @@ class MyFCMService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        MyApp.getCleverTapDefaultInstance()?.pushFcmRegistrationId(token, true)
+        CleverTapAPI.getDefaultInstance(applicationContext)?.pushFcmRegistrationId(token, true)
     }
 }

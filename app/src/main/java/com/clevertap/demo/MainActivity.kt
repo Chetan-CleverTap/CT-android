@@ -9,6 +9,10 @@ import androidx.databinding.DataBindingUtil
 import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.demo.databinding.ActivityMainBinding
+import com.mparticle.BaseEvent
+import com.mparticle.MPEvent
+import com.mparticle.MParticle
+import com.mparticle.identity.IdentityApiRequest
 import java.lang.Exception
 import kotlin.collections.HashMap
 
@@ -22,8 +26,8 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
         setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        MyApp.getCleverTapDefaultInstance()?.ctNotificationInboxListener = this@MainActivity
-        MyApp.getCleverTapDefaultInstance()?.initializeInbox()
+//        MyApp.getCleverTapDefaultInstance()?.ctNotificationInboxListener = this@MainActivity
+//        MyApp.getCleverTapDefaultInstance()?.initializeInbox()
 
         with(binding) {
             this!!.buttonLogout.setOnClickListener {
@@ -42,17 +46,49 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
                 raiseEvent()
             }
         }
+
+
+        with(binding) {
+            this!!.buttonProfilePush.setOnClickListener {
+                pushProfile()
+            }
+        }
+    }
+
+    private fun pushProfile() {
+        val currentUser = MParticle.getInstance()?.Identity()?.currentUser
+        currentUser?.setUserAttribute("top_region", "Europe")
+        val attributeList = ArrayList<String>()
+        attributeList.add("Rome")
+        attributeList.add("San Juan")
+        attributeList.add("Denver")
+        currentUser?.setUserAttributeList("destinations", attributeList)
+
     }
 
     private fun raiseEvent() {
-        MyApp.getCleverTapDefaultInstance()?.pushEvent(binding?.et?.text.toString())
+        CleverTapAPI.getDefaultInstance(applicationContext)?.pushEvent("Test CT SDK event")
+
+
+//        val event = MPEvent.Builder("Test MParticle event", MParticle.EventType.Navigation)
+////            .customAttributes(customAttributes)
+//            .build()
+//
+//        MParticle.getInstance()?.logEvent(event)
+
     }
 
     private fun newProfile() {
-        val profileUpdate = HashMap<String, Any>()
-        profileUpdate["Name"] = "Jack Montana" // String
-        profileUpdate["Email"] = binding?.et?.text.toString()
-        MyApp.getCleverTapDefaultInstance()?.onUserLogin(profileUpdate)
+        /* val profileUpdate = HashMap<String, Any>()
+         profileUpdate["Name"] = "Jack Montana" // String
+         profileUpdate["Email"] = binding?.et?.text.toString()
+         MyApp.getCleverTapDefaultInstance()?.onUserLogin(profileUpdate)*/
+
+
+        val identityRequest = IdentityApiRequest.withEmptyUser()
+            .email(binding?.et?.text.toString())
+            .build()
+        MParticle.getInstance()?.Identity()?.login(identityRequest)
     }
 
     private fun logOut() {
@@ -71,7 +107,7 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
     override fun inboxDidInitialize() {
         with(binding) {
             this!!.buttonAppInbox.setOnClickListener {
-                MyApp.getCleverTapDefaultInstance()?.showAppInbox()
+                CleverTapAPI.getDefaultInstance(applicationContext)?.showAppInbox()
             }
         }
     }

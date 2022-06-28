@@ -46,10 +46,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="Create new profile"
-            app:layout_constraintBottom_toTopOf="@id/button_app_inbox"
+            app:layout_constraintBottom_toTopOf="@id/button_profile_push"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_logout" />
+
+        <Button
+            android:id="@+id/button_profile_push"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Profile Push"
+            app:layout_constraintBottom_toTopOf="@id/button_app_inbox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_create_new_profile" />
 
         <Button
             android:id="@+id/button_app_inbox"
@@ -60,7 +71,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_create_new_profile" />
+            app:layout_constraintTop_toBottomOf="@id/button_profile_push" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
