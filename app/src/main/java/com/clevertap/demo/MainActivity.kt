@@ -87,8 +87,8 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        /*CleverTapAPI.getDefaultInstance(applicationContext)
-            ?.pushNotificationClickedEvent(intent?.extras)*/
+        CleverTapAPI.getDefaultInstance(applicationContext)
+            ?.pushNotificationClickedEvent(intent?.extras)
     }
 
     override fun inboxMessagesDidUpdate() {
