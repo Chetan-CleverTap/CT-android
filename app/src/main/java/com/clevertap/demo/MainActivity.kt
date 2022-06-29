@@ -1,16 +1,15 @@
 package com.clevertap.demo
 
 import android.content.Context
-import android.content.SharedPreferences
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
+import com.clevertap.android.sdk.pushnotification.CTPushNotificationReceiver
 import com.clevertap.demo.databinding.ActivityMainBinding
-import java.lang.Exception
-import kotlin.collections.HashMap
 
 
 class MainActivity : AppCompatActivity(), CTInboxListener {
@@ -51,7 +50,17 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
     private fun newProfile() {
         val profileUpdate = HashMap<String, Any>()
         profileUpdate["Name"] = "Jack Montana" // String
-        profileUpdate["Email"] = binding?.et?.text.toString()
+//        profileUpdate["Email"] = binding?.et?.text.toString()
+
+        profileUpdate["City"] = "Mumbai"
+
+        profileUpdate["rec_2"] = arrayOf("CT000001", "CT000003")
+        profileUpdate["rec_1"] = arrayOf("CT000005", "CT000007", "CT000001", "CT000003")
+        profileUpdate["Gender1"] = "M"
+        profileUpdate["rating"] = arrayOf(1, 2, 3, 4)
+        profileUpdate["rating-string"] = arrayOf("3", "4", "5")
+        profileUpdate["City"] = arrayOf("Delhi", "Mumbai", "Chennai")
+
         MyApp.getCleverTapDefaultInstance()?.onUserLogin(profileUpdate)
     }
 
@@ -74,6 +83,12 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
                 MyApp.getCleverTapDefaultInstance()?.showAppInbox()
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        /*CleverTapAPI.getDefaultInstance(applicationContext)
+            ?.pushNotificationClickedEvent(intent?.extras)*/
     }
 
     override fun inboxMessagesDidUpdate() {
