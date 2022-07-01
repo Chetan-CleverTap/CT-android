@@ -28,9 +28,22 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="example"
-                    android:host="gizmos" />
+                <!--gizmos://example-->
+                <data
+                    android:host="gizmos"
+                    android:scheme="example" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- https://google.com -->
+                <data
+                    android:host="https"
+                    android:scheme="google.com" />
+            </intent-filter>
+
         </activity>
         <activity
             android:name=".MainActivity"

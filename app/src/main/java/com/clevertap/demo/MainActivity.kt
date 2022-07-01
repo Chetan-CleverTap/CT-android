@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.clevertap.android.sdk.CTInboxListener
@@ -89,6 +90,7 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
         super.onNewIntent(intent)
         CleverTapAPI.getDefaultInstance(applicationContext)
             ?.pushNotificationClickedEvent(intent?.extras)
+        Toast.makeText(this, "On new intent called on main activity", Toast.LENGTH_LONG).show()
     }
 
     override fun inboxMessagesDidUpdate() {

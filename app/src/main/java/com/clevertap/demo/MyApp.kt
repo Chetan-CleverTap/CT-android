@@ -88,7 +88,7 @@ class MyApp : Application(), CTPushNotificationListener {
             }
 
             override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
-                Log.d("onActivitySaveInstanceState", "onActivitySaveInstanceState")
+                Log.d("onActivityState", "onActivitySaveInstanceState")
             }
 
             override fun onActivityDestroyed(activity: Activity) {

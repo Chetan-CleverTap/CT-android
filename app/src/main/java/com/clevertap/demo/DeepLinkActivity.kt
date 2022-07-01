@@ -3,6 +3,7 @@ package com.clevertap.demo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.clevertap.android.sdk.CleverTapAPI
 
 class DeepLinkActivity : AppCompatActivity() {
@@ -15,5 +16,7 @@ class DeepLinkActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         CleverTapAPI.getDefaultInstance(applicationContext)
             ?.pushNotificationClickedEvent(intent?.extras)
+        Toast.makeText(this, "On new intent called on deep link activity", Toast.LENGTH_LONG).show()
+
     }
 }
