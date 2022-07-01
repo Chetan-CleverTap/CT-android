@@ -1,19 +1,15 @@
 package com.clevertap.demo
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
-import com.clevertap.android.sdk.pushnotification.CTPushNotificationReceiver
 import com.clevertap.demo.databinding.ActivityMainBinding
 
 
-class MainActivity : AppCompatActivity(), CTInboxListener {
+class MainActivity : BaseActivity(), CTInboxListener {
 
     var binding: ActivityMainBinding? = null
 
@@ -86,12 +82,13 @@ class MainActivity : AppCompatActivity(), CTInboxListener {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
+/*    override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        Log.d("DEBUG_ANDROID_S", "onNewIntent MainActivity")
         CleverTapAPI.getDefaultInstance(applicationContext)
             ?.pushNotificationClickedEvent(intent?.extras)
         Toast.makeText(this, "On new intent called on main activity", Toast.LENGTH_LONG).show()
-    }
+    }*/
 
     override fun inboxMessagesDidUpdate() {
     }

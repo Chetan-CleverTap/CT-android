@@ -17,18 +17,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CleverTapSDKDemo"
         tools:targetApi="31">
-
+        <activity
+            android:name=".BaseActivity"
+            android:exported="false" />
         <activity
             android:name=".DeepLinkActivity"
             android:exported="false"
             tools:ignore="AppLinkUrlError">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!--gizmos://example-->
+                <!-- example://gizmos -->
                 <data
                     android:host="gizmos"
                     android:scheme="example" />
@@ -40,10 +41,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- https://google.com -->
                 <data
-                    android:host="https"
-                    android:scheme="google.com" />
+                    android:host="google.com"
+                    android:scheme="https" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".MainActivity"
