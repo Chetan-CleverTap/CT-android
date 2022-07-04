@@ -1,9 +1,14 @@
 package com.clevertap.demo
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Application
 import android.app.NotificationManager
+import android.content.Context
+import android.net.Uri
+import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.clevertap.android.sdk.ActivityLifecycleCallback
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
@@ -21,8 +26,9 @@ class MyApp : Application(), CTPushNotificationListener {
     }
 
     override fun onCreate() {
-        ActivityLifecycleCallback.register(this)
         super.onCreate()
+        registerCallback()
+
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG);
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(
             this
@@ -42,24 +48,9 @@ class MyApp : Application(), CTPushNotificationListener {
         )
     }
 
-/*
+
     private fun registerCallback() {
-        registerActivityLifecycleCallbacks(object : MyActivityLifecycleCallbacks {
-            override fun onNewIntent(intent: Intent?) {
-                try {
-                    CleverTapAPI.getDefaultInstance(applicationContext)!!
-                        .pushNotificationClickedEvent(intent?.extras)
-                } catch (t: Throwable) {
-
-                }
-                try {
-                    val data: Uri? = intent?.data
-                    CleverTapAPI.getDefaultInstance(applicationContext)!!.pushDeepLink(data)
-                } catch (t: Throwable) {
-
-                }
-            }
-
+        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 CleverTapAPI.setAppForeground(true)
                 Log.d("DEBUG_ANDROID_S", "OnActivityCreated " + activity.javaClass.name)
@@ -67,14 +58,31 @@ class MyApp : Application(), CTPushNotificationListener {
                     CleverTapAPI.getDefaultInstance(applicationContext)!!
                         .pushNotificationClickedEvent(activity.intent.extras)
                 } catch (t: Throwable) {
-
                 }
                 try {
                     val intent = activity.intent
                     val data: Uri? = intent.data
                     CleverTapAPI.getDefaultInstance(applicationContext)!!.pushDeepLink(data)
                 } catch (t: Throwable) {
+                }
 
+                try {
+                    //Require to close notification on action button click
+                    activity.intent?.extras?.apply {
+                        getString("actionId")?.let {
+                            Log.d("ACTION_ID", it)
+                            val autoCancel = getBoolean("autoCancel", true)
+                            val notificationId = getInt("notificationId", -1)
+                            if (autoCancel && notificationId > -1) {
+                                val notifyMgr: NotificationManager =
+                                    applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                                notifyMgr.cancel(notificationId)
+                            }
+                            Toast.makeText(baseContext, "Action ID is: $it", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                } catch (t: Throwable) {
                 }
             }
 
@@ -110,7 +118,6 @@ class MyApp : Application(), CTPushNotificationListener {
             }
         })
     }
-*/
 
     override fun onNotificationClickedPayloadReceived(payload: HashMap<String, Any>?) {
         Log.d("DEBUG_ANDROID_S", "Clicked callback")
