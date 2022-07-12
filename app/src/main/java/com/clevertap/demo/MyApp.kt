@@ -6,12 +6,16 @@ import android.app.Application
 import android.app.NotificationManager
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.clevertap.android.sdk.ActivityLifecycleCallback
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
+import com.google.firebase.analytics.FirebaseAnalytics
+import java.util.*
+import kotlin.collections.HashMap
 
 @SuppressLint("StaticFieldLeak")
 var clevertapDefaultInstance: CleverTapAPI? = null
@@ -34,6 +38,12 @@ class MyApp : Application(), CTPushNotificationListener {
             this
         )
 
+        val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseAnalytics.setUserProperty(
+            "ct_objectId",
+            Objects.requireNonNull(CleverTapAPI.getDefaultInstance(this))?.cleverTapID
+        )
+
         clevertapDefaultInstance?.ctPushNotificationListener = this;
 
         CleverTapAPI.createNotificationChannelGroup(
@@ -54,10 +64,12 @@ class MyApp : Application(), CTPushNotificationListener {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 CleverTapAPI.setAppForeground(true)
                 Log.d("DEBUG_ANDROID_S", "OnActivityCreated " + activity.javaClass.name)
-                try {
-                    CleverTapAPI.getDefaultInstance(applicationContext)!!
-                        .pushNotificationClickedEvent(activity.intent.extras)
-                } catch (t: Throwable) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    try {
+                        CleverTapAPI.getDefaultInstance(applicationContext)!!
+                            .pushNotificationClickedEvent(activity.intent.extras)
+                    } catch (t: Throwable) {
+                    }
                 }
                 try {
                     val intent = activity.intent

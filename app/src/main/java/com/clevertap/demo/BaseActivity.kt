@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,8 +22,10 @@ open class BaseActivity : AppCompatActivity() {
         Log.d("DEBUG_ANDROID_S", "onNewIntent BaseActivity")
 
         //Require to raise the Notification Clicked event and to trigger the onNotificationClickedPayloadReceived() callback
-        CleverTapAPI.getDefaultInstance(applicationContext)
-            ?.pushNotificationClickedEvent(intent?.extras)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            CleverTapAPI.getDefaultInstance(applicationContext)
+                ?.pushNotificationClickedEvent(intent?.extras)
+        }
 
         //Require to close notification on action button click
         intent?.extras?.apply {
