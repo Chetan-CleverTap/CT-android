@@ -19,7 +19,7 @@ open class BaseActivity : AppCompatActivity() {
 
         Toast.makeText(this, "On new intent called on deep link activity", Toast.LENGTH_LONG).show()
 
-        Log.d("DEBUG_ANDROID_S", "onNewIntent BaseActivity")
+        Log.d("DEBUG_ANDROID_S", "onNewIntent called on " + this.javaClass.name)
 
         //Require to raise the Notification Clicked event and to trigger the onNotificationClickedPayloadReceived() callback
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

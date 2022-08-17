@@ -6,18 +6,21 @@ import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.clevertap.android.sdk.CTInboxListener
 import com.clevertap.android.sdk.CleverTapAPI
+import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
 import com.clevertap.demo.databinding.ActivityMainBinding
 
 
-class MainActivity : BaseActivity(), CTInboxListener {
+class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener {
 
     var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        MyApp.getCleverTapDefaultInstance()?.ctPushNotificationListener = this
+        Log.d("DEBUG_ANDROID_S", "onCreate " + this.javaClass.name)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
         MyApp.getCleverTapDefaultInstance()?.ctNotificationInboxListener = this@MainActivity
         MyApp.getCleverTapDefaultInstance()?.initializeInbox()
 
@@ -91,5 +94,9 @@ class MainActivity : BaseActivity(), CTInboxListener {
     }*/
 
     override fun inboxMessagesDidUpdate() {
+    }
+
+    override fun onNotificationClickedPayloadReceived(payload: HashMap<String, Any>?) {
+        Log.d("DEBUG_ANDROID_S", "Clicked callback" + this.javaClass.name)
     }
 }

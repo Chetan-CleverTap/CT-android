@@ -21,7 +21,7 @@ import kotlin.collections.HashMap
 var clevertapDefaultInstance: CleverTapAPI? = null
 
 
-class MyApp : Application(), CTPushNotificationListener {
+class MyApp : Application()/*, CTPushNotificationListener*/ {
 
     companion object {
         fun getCleverTapDefaultInstance(): CleverTapAPI? {
@@ -44,7 +44,7 @@ class MyApp : Application(), CTPushNotificationListener {
             Objects.requireNonNull(CleverTapAPI.getDefaultInstance(this))?.cleverTapID
         )
 
-        clevertapDefaultInstance?.ctPushNotificationListener = this;
+//        clevertapDefaultInstance?.ctPushNotificationListener = this;
 
         CleverTapAPI.createNotificationChannelGroup(
             this,
@@ -131,7 +131,7 @@ class MyApp : Application(), CTPushNotificationListener {
         })
     }
 
-    override fun onNotificationClickedPayloadReceived(payload: HashMap<String, Any>?) {
-        Log.d("DEBUG_ANDROID_S", "Clicked callback")
-    }
+//    override fun onNotificationClickedPayloadReceived(payload: HashMap<String, Any>?) {
+//        Log.d("DEBUG_ANDROID_S", "Clicked callback")
+//    }
 }
