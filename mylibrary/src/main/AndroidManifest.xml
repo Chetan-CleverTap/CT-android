@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.clevertap.mylibrary">
+
+    <application android:name=".LibApp" />
+
+    <meta-data
+        android:name="CLEVERTAP_ACCOUNT_ID"
+        android:value="449-W7Z-775Z" />
+    <meta-data
+        android:name="CLEVERTAP_TOKEN"
+        android:value="1a0-c44" />
+    <meta-data
+        android:name="CLEVERTAP_USE_GOOGLE_AD_ID"
+        android:value="1" />
+
+</manifest>

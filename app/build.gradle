@@ -5,6 +5,7 @@ plugins {
 
 android {
     compileSdk 31
+    flavorDimensions "default"
     defaultConfig {
         applicationId "com.clevertap.demo"
         minSdk 23
@@ -14,9 +15,24 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    productFlavors {
+        staging {
+            applicationIdSuffix ".uat"
+        }
+
+        prod {
+
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -40,22 +56,25 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation 'com.clevertap.android:clevertap-android-sdk:4.5.2'
+    implementation 'com.clevertap.android:clevertap-android-sdk:4.6.1'
     implementation 'com.google.firebase:firebase-messaging:23.0.5'
     implementation 'com.google.firebase:firebase-core:21.0.0'
     implementation 'com.google.firebase:firebase-analytics:21.0.0'
     implementation 'com.google.android.gms:play-services-measurement-api:21.0.0'
     implementation 'com.android.installreferrer:installreferrer:2.2'
+    implementation 'com.clevertap.android:clevertap-xiaomi-sdk:1.4.0'
 
+    implementation "com.clevertap.android:push-templates:1.0.5"
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
-    implementation "com.google.android.exoplayer:exoplayer:2.11.5"
-    implementation "com.google.android.exoplayer:exoplayer-hls:2.11.5"
-    implementation "com.google.android.exoplayer:exoplayer-ui:2.11.5"
+    implementation "com.google.android.exoplayer:exoplayer:2.15.1"
+    implementation "com.google.android.exoplayer:exoplayer-hls:2.15.1"
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.15.1'
+    implementation project(path: ":mylibrary")
 
 }
 apply plugin: 'com.google.gms.google-services'

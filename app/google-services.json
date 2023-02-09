@@ -33,6 +33,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65028887967:android:4315706940a2de288659aa",
+        "android_client_info": {
+          "package_name": "com.clevertap.demo.uat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65028887967-k1f8a3h8mfkjhoeuce9av4qpffr1alac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqiUUUjHmPVDh9sndfRW0ExupoiBF4jfQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65028887967-k1f8a3h8mfkjhoeuce9av4qpffr1alac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

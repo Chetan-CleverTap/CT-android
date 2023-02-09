@@ -4,13 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
-import com.clevertap.android.sdk.CTInboxListener
-import com.clevertap.android.sdk.CleverTapAPI
+import com.clevertap.android.sdk.*
+import com.clevertap.android.sdk.displayunits.DisplayUnitListener
+import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
 import com.clevertap.demo.databinding.ActivityMainBinding
 
 
-class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener {
+class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener,
+    InAppNotificationButtonListener, DisplayUnitListener {
 
     var binding: ActivityMainBinding? = null
 
@@ -21,8 +23,12 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        MyApp.getCleverTapDefaultInstance()?.ctNotificationInboxListener = this@MainActivity
-        MyApp.getCleverTapDefaultInstance()?.initializeInbox()
+        MyApp.getCleverTapDefaultInstance()?.getAllInboxMessages()
+
+//        MyApp.getCleverTapDefaultInstance()?.ctNotificationInboxListener = this@MainActivity
+
+//        MyApp.getCleverTapDefaultInstance()?.initializeInbox()
+        MyApp.getCleverTapDefaultInstance()?.setDisplayUnitListener(this)
 
         with(binding) {
             this!!.buttonLogout.setOnClickListener {
@@ -41,6 +47,7 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
                 raiseEvent()
             }
         }
+        MyApp.getCleverTapDefaultInstance()?.setInAppNotificationButtonListener(this);
     }
 
     private fun raiseEvent() {
@@ -70,7 +77,7 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
             val editor = preferences.edit()
             editor.clear()
             editor.apply()
-            CleverTapAPI.getInstances().clear()
+//                MyApp.getCleverTapDefaultInstance().clear()
 
         } catch (e: Exception) {
             Log.e("Error", e.message.toString())
@@ -81,6 +88,8 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
         with(binding) {
             this!!.buttonAppInbox.setOnClickListener {
                 MyApp.getCleverTapDefaultInstance()?.showAppInbox()
+
+                MyApp.getCleverTapDefaultInstance()?.allInboxMessages
             }
         }
     }
@@ -99,4 +108,18 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
     override fun onNotificationClickedPayloadReceived(payload: HashMap<String, Any>?) {
         Log.d("DEBUG_ANDROID_S", "Clicked callback" + this.javaClass.name)
     }
+
+    override fun onInAppButtonClick(payload: HashMap<String, String>?) {
+        if (payload != null) {
+            Log.d("In-app Click", "payload$payload")
+        }
+    }
+
+    override fun onDisplayUnitsLoaded(units: ArrayList<CleverTapDisplayUnit>?) {
+        Log.d("NativeDisplay", "payload$units")
+        MyApp.getCleverTapDefaultInstance()?.pushDisplayUnitViewedEventForID(units!![0].unitID)
+    }
 }
+
+
+
