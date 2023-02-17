@@ -4,7 +4,9 @@ import android.app.NotificationManager
 import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.clevertap.android.pushtemplates.PushTemplateReceiver
 import com.clevertap.android.sdk.CleverTapAPI
+import com.clevertap.android.sdk.pushnotification.fcm.CTFcmMessageHandler
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -28,7 +30,10 @@ class MyFCMService : FirebaseMessagingService() {
                            // set the ongoing flag to true for the NotificationBuilder by-
                            // calling notificationBuilder.setOngoing(true);
                         } else {
-                            CleverTapAPI.createNotification(applicationContext, extras)
+//                            CleverTapAPI.createNotification(applicationContext, extras)
+                            CTFcmMessageHandler()
+                                .createNotification(applicationContext, message);
+
                         }
                     } else {
                         // not from CleverTap handle yourself or pass to another provider

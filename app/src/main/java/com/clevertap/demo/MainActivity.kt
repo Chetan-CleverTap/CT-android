@@ -3,6 +3,7 @@ package com.clevertap.demo
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import com.clevertap.android.sdk.*
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
@@ -15,7 +16,6 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
     InAppNotificationButtonListener, DisplayUnitListener {
 
     var binding: ActivityMainBinding? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         MyApp.getCleverTapDefaultInstance()?.ctPushNotificationListener = this
         Log.d("DEBUG_ANDROID_S", "onCreate " + this.javaClass.name)
@@ -25,9 +25,9 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         MyApp.getCleverTapDefaultInstance()?.getAllInboxMessages()
 
-//        MyApp.getCleverTapDefaultInstance()?.ctNotificationInboxListener = this@MainActivity
+        MyApp.getCleverTapDefaultInstance()?.ctNotificationInboxListener = this@MainActivity
 
-//        MyApp.getCleverTapDefaultInstance()?.initializeInbox()
+        MyApp.getCleverTapDefaultInstance()?.initializeInbox()
         MyApp.getCleverTapDefaultInstance()?.setDisplayUnitListener(this)
 
         with(binding) {
@@ -57,7 +57,7 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
     private fun newProfile() {
         val profileUpdate = HashMap<String, Any>()
         profileUpdate["Name"] = "Jack Montana" // String
-//        profileUpdate["Email"] = binding?.et?.text.toString()
+        profileUpdate["Identity"] = binding?.et?.text.toString()
 
         profileUpdate["City"] = "Mumbai"
 
