@@ -47,6 +47,13 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
                 raiseEvent()
             }
         }
+
+        with(binding) {
+            this!!.buttonPushProfile.setOnClickListener {
+                updateProfile()
+            }
+        }
+
         MyApp.getCleverTapDefaultInstance()?.setInAppNotificationButtonListener(this);
     }
 
@@ -69,6 +76,12 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
         profileUpdate["City"] = arrayOf("Delhi", "Mumbai", "Chennai")
 
         MyApp.getCleverTapDefaultInstance()?.onUserLogin(profileUpdate)
+    }
+
+    private fun updateProfile () {
+        val profileUpdate = HashMap<String, Any>()
+        profileUpdate["City"] = "Delhi"
+        MyApp.getCleverTapDefaultInstance()?.pushProfile(profileUpdate)
     }
 
     private fun logOut() {
