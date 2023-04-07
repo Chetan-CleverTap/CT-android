@@ -39,12 +39,6 @@ class MyApp : Application()/*, CTPushNotificationListener*/ {
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(
             this
         )
-        getCleverTapDefaultInstance()?.pushEvent("App Launched")
-        getCleverTapDefaultInstance()?.pushEvent("App Launched")
-        getCleverTapDefaultInstance()?.pushEvent("App Launched")
-        getCleverTapDefaultInstance()?.pushEvent("App Launched")
-        getCleverTapDefaultInstance()?.pushEvent("AppLaunched")
-
         MyLibraryClass.getInstance(this);
 
         CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler());
@@ -67,6 +61,15 @@ class MyApp : Application()/*, CTPushNotificationListener*/ {
             applicationContext, "test", "test", "test",
             NotificationManager.IMPORTANCE_MAX, "YourGroupId", true
         )
+
+        CleverTapAPI.createNotificationChannel(applicationContext,"sound",
+            "Game of Thrones","Game Of Thrones",NotificationManager.IMPORTANCE_MAX,
+            true,"ring.mp3")
+
+        CleverTapAPI.createNotificationChannel(applicationContext,"sound1",
+            "Game of Thrones","Game Of Thrones",NotificationManager.IMPORTANCE_MAX,
+            true,"ring1.wav")
+
     }
 
 
