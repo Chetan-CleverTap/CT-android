@@ -17,7 +17,7 @@ android {
 
     productFlavors {
         staging {
-            applicationIdSuffix ".uat"
+            //applicationIdSuffix ".uat"
         }
 
         prod {

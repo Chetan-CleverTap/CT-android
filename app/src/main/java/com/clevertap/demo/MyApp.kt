@@ -39,6 +39,7 @@ class MyApp : Application()/*, CTPushNotificationListener*/ {
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(
             this
         )
+        clevertapDefaultInstance?.enableDeviceNetworkInfoReporting(true)
         MyLibraryClass.getInstance(this);
 
         CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler());
