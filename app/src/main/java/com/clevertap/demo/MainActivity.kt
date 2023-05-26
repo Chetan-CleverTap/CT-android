@@ -1,9 +1,9 @@
 package com.clevertap.demo
 
+import android.app.NotificationManager
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import com.clevertap.android.sdk.*
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
@@ -13,7 +13,7 @@ import com.clevertap.demo.databinding.ActivityMainBinding
 
 
 class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener,
-    InAppNotificationButtonListener, DisplayUnitListener {
+    InAppNotificationButtonListener, DisplayUnitListener, PushPermissionResponseListener {
 
     var binding: ActivityMainBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,10 +55,16 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
         }
 
         MyApp.getCleverTapDefaultInstance()?.setInAppNotificationButtonListener(this);
+        MyApp.getCleverTapDefaultInstance()?.registerPushPermissionNotificationResponseListener(this);
+
+       // MyApp.getCleverTapDefaultInstance()?.promptForPushPermission(true)
     }
 
     private fun raiseEvent() {
-        MyApp.getCleverTapDefaultInstance()?.pushEvent(binding?.et?.text.toString())
+
+        MyApp.getCleverTapDefaultInstance()?.promptForPushPermission(true)
+
+//        MyApp.getCleverTapDefaultInstance()?.pushEvent(binding?.et?.text.toString())
     }
 
     private fun newProfile() {
@@ -131,6 +137,37 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
     override fun onDisplayUnitsLoaded(units: ArrayList<CleverTapDisplayUnit>?) {
         Log.d("NativeDisplay", "payload$units")
         MyApp.getCleverTapDefaultInstance()?.pushDisplayUnitViewedEventForID(units!![0].unitID)
+    }
+
+    override fun onPushPermissionResponse(accepted: Boolean) {
+        if(accepted){
+
+            CleverTapAPI.createNotificationChannelGroup(
+                this,
+                "YourGroupId",
+                "YourGroupName"
+            )
+
+            CleverTapAPI.createNotificationChannel(
+                applicationContext, "test", "test", "test",
+                NotificationManager.IMPORTANCE_MAX, "YourGroupId", true
+            )
+
+            CleverTapAPI.createNotificationChannel(applicationContext,"sound",
+                "Game of Thrones","Game Of Thrones",NotificationManager.IMPORTANCE_MAX,
+                true,"ring.mp3")
+
+            CleverTapAPI.createNotificationChannel(applicationContext,"sound1",
+                "Game of Thrones","Game Of Thrones",NotificationManager.IMPORTANCE_MAX,
+                true,"ring1.wav")
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (MyApp.getCleverTapDefaultInstance() != null) {
+            MyApp.getCleverTapDefaultInstance()?.unregisterPushPermissionNotificationResponseListener(this)
+        }
     }
 }
 
