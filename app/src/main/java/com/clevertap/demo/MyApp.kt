@@ -10,12 +10,10 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.clevertap.android.sdk.ActivityLifecycleCallback
+import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.CleverTapAPI
-import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
 import com.google.firebase.analytics.FirebaseAnalytics
 import java.util.*
-import kotlin.collections.HashMap
 
 @SuppressLint("StaticFieldLeak")
 var clevertapDefaultInstance: CleverTapAPI? = null
@@ -45,6 +43,7 @@ class MyApp : Application()/*, CTPushNotificationListener*/ {
         )
 
 //        clevertapDefaultInstance?.ctPushNotificationListener = this;
+        CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler());
 
         CleverTapAPI.createNotificationChannelGroup(
             this,

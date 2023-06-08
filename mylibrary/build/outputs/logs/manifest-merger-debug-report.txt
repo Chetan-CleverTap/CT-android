@@ -1,0 +1,47 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:2:1-17:12
+INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:2:1-17:12
+INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:2:1-17:12
+	package
+		ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:3:5-38
+		INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:2:11-69
+application
+ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:5:5-43
+	android:name
+		ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:5:18-40
+meta-data#CLEVERTAP_ACCOUNT_ID
+ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:7:5-9:40
+	android:value
+		ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:9:9-37
+	android:name
+		ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:8:9-44
+meta-data#CLEVERTAP_TOKEN
+ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:10:5-12:35
+	android:value
+		ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:12:9-32
+	android:name
+		ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:11:9-39
+meta-data#CLEVERTAP_USE_GOOGLE_AD_ID
+ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:13:5-15:29
+	android:value
+		ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:15:9-26
+	android:name
+		ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml:14:9-50
+uses-sdk
+INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml
+INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml
+INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml
+INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml
+		ADDED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml
+		INJECTED from /Users/chetan.a/AndroidStudioProjects/CleverTapSDKDemo/mylibrary/src/main/AndroidManifest.xml

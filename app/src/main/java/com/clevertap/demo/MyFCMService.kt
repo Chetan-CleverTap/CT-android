@@ -3,6 +3,7 @@ package com.clevertap.demo
 import android.os.Bundle
 import android.util.Log
 import com.clevertap.android.sdk.CleverTapAPI
+import com.clevertap.android.sdk.pushnotification.fcm.CTFcmMessageHandler
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -20,7 +21,10 @@ class MyFCMService : FirebaseMessagingService() {
                     }
                     val info = CleverTapAPI.getNotificationInfo(extras)
                     if (info.fromCleverTap) {
-                        CleverTapAPI.createNotification(applicationContext, extras)
+//                        CleverTapAPI.createNotification(applicationContext, extras)
+                        CTFcmMessageHandler()
+                            .createNotification(applicationContext, message);
+
                     } else {
                         // not from CleverTap handle yourself or pass to another provider
                     }
