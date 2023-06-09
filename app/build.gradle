@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
     defaultConfig {
         applicationId "com.clevertap.demo"
         minSdk 23
-        targetSdk 31
+        targetSdk 32
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -42,6 +42,7 @@ dependencies {
 
     implementation 'com.clevertap.android:clevertap-android-sdk:4.6.7'
     implementation "com.clevertap.android:push-templates:1.0.5.1"
+    implementation 'com.clevertap.android:clevertap-rendermax-sdk:1.0.3'
 
     implementation 'com.google.firebase:firebase-messaging:23.0.5'
     implementation 'com.google.firebase:firebase-core:21.0.0'
