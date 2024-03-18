@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
@@ -7,10 +6,12 @@
         <entry key="app/src/main/res/layout/activity_base.xml" value="0.15885416666666666" />
         <entry key="app/src/main/res/layout/activity_deep_link.xml" value="0.12239583333333333" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2006340579710145" />
+        <entry key="app/src/main/res/layout/pip.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.172" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

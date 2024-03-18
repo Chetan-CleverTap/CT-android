@@ -21,7 +21,7 @@ public class MyClass {
 
     public static void parseJson() {
         BufferedReader reader = null;
-        String file = "/Users/chetan.a/Downloads/1610457216-1621255808-1644523200-0.json";
+        String file = "/Users/chetan.a/Desktop/Paytm/push.json";
         try {
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
             String inputLine;

@@ -1,15 +1,30 @@
 package com.clevertap.demo
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.AlertDialog
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
+import android.graphics.PixelFormat
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
+import android.view.*
+import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import com.clevertap.android.pushtemplates.PTConstants
 import com.clevertap.android.sdk.*
 import com.clevertap.android.sdk.displayunits.DisplayUnitListener
 import com.clevertap.android.sdk.displayunits.model.CleverTapDisplayUnit
+import com.clevertap.android.sdk.inapp.CTLocalInApp
+import com.clevertap.android.sdk.inapp.CTLocalInApp.InAppType
 import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
 import com.clevertap.demo.databinding.ActivityMainBinding
+import org.json.JSONObject
 
 
 class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener,
@@ -32,7 +47,8 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
 
         with(binding) {
             this!!.buttonLogout.setOnClickListener {
-                logOut()
+//                logOut()
+                requestOverlayPermission()
             }
         }
 
@@ -57,12 +73,64 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
         MyApp.getCleverTapDefaultInstance()?.setInAppNotificationButtonListener(this);
         MyApp.getCleverTapDefaultInstance()?.registerPushPermissionNotificationResponseListener(this);
 
-       // MyApp.getCleverTapDefaultInstance()?.promptForPushPermission(true)
+        // MyApp.getCleverTapDefaultInstance()?.promptForPushPermission(true)
     }
 
+    fun dismissNotification(intent: Intent?, applicationContext: Context){
+        intent?.extras?.apply {
+            var autoCancel = true
+            var notificationId = -1
+
+            getString("actionId")?.let {
+                Log.d("ACTION_ID", it)
+                autoCancel = getBoolean("autoCancel", true)
+                notificationId = getInt("notificationId", -1)
+            }
+            /**
+             * If using InputBox template, add ptDismissOnClick flag to not dismiss notification
+             * if pt_dismiss_on_click is false in InputBox template payload. Alternatively if normal
+             * notification is raised then we dismiss notification.
+             */
+            val ptDismissOnClick = intent.extras!!.getString(PTConstants.PT_DISMISS_ON_CLICK,"")
+
+            if (autoCancel && notificationId > -1 && ptDismissOnClick.isNullOrEmpty()) {
+                val notifyMgr: NotificationManager =
+                    applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                notifyMgr.cancel(notificationId)
+            }
+        }
+    }
+
+    private fun requestOverlayPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return
+        }
+        val myIntent: Intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+        myIntent.data = Uri.parse("package:$packageName")
+        startActivityForResult(myIntent, 1)
+    }
+
+    @SuppressLint("RestrictedApi")
     private fun raiseEvent() {
 
-        MyApp.getCleverTapDefaultInstance()?.promptForPushPermission(true)
+        val jsonObject: JSONObject = CTLocalInApp.builder()
+            .setInAppType(InAppType.HALF_INTERSTITIAL)
+            .setTitleText("Get Notified")
+            .setMessageText("Please enable notifications on your device to use Push Notifications.")
+            .followDeviceOrientation(true)
+            .setPositiveBtnText("Allow")
+            .setNegativeBtnText("Cancel")
+            .setFallbackToSettings(true)
+            .setBackgroundColor(Constants.WHITE)
+            .setBtnBorderColor(Constants.BLUE)
+            .setTitleTextColor(Constants.BLUE)
+            .setMessageTextColor(Constants.BLACK)
+            .setBtnTextColor(Constants.WHITE)
+            .setImageUrl("https://icons.iconarchive.com/icons/treetog/junior/64/camera-icon.png")
+            .setBtnBackgroundColor(Constants.BLUE)
+            .build()
+//        MyApp.getCleverTapDefaultInstance()?.promptPushPrimer(jsonObject)
+        MyApp.getCleverTapDefaultInstance()?.promptForPushPermission(false)
 
 //        MyApp.getCleverTapDefaultInstance()?.pushEvent(binding?.et?.text.toString())
     }
@@ -70,8 +138,8 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
     private fun newProfile() {
         val profileUpdate = HashMap<String, Any>()
         profileUpdate["Name"] = "Jack Montana" // String
-        profileUpdate["Identity"] = binding?.et?.text.toString()
-
+        profileUpdate["Identity"] != null
+//
         profileUpdate["City"] = "Mumbai"
 
         profileUpdate["rec_2"] = arrayOf("CT000001", "CT000003")
@@ -92,12 +160,25 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
 
     private fun logOut() {
         try {
-            val preferences = getSharedPreferences("WizRocket", Context.MODE_PRIVATE)
-            val editor = preferences.edit()
-            editor.clear()
-            editor.apply()
+//            val preferences = getSharedPreferences("WizRocket", Context.MODE_PRIVATE)
+//            val editor = preferences.edit()
+//            editor.clear()
+//            editor.apply()
 //                MyApp.getCleverTapDefaultInstance().clear()
 
+//             Testing(applicationContext)
+
+            startActivityForResult(Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "*/*"
+            }, 100)
+//            val chooseFile = Intent(Intent.ACTION_OPEN_DOCUMENT)
+//            chooseFile.addCategory(Intent.CATEGORY_OPENABLE)
+//            chooseFile.type = "application/octet-stream"
+//            startActivityForResult(
+//                Intent.createChooser(chooseFile, "Choose a file"),
+//                100
+//            )
         } catch (e: Exception) {
             Log.e("Error", e.message.toString())
         }
@@ -121,6 +202,13 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
         Toast.makeText(this, "On new intent called on main activity", Toast.LENGTH_LONG).show()
     }*/
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
+            Testing(applicationContext, data?.data)
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
     override fun inboxMessagesDidUpdate() {
     }
 
@@ -139,6 +227,7 @@ class MainActivity : BaseActivity(), CTInboxListener, CTPushNotificationListener
         MyApp.getCleverTapDefaultInstance()?.pushDisplayUnitViewedEventForID(units!![0].unitID)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onPushPermissionResponse(accepted: Boolean) {
         if(accepted){
 

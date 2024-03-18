@@ -13,6 +13,8 @@ import android.widget.Toast
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.ActivityLifecycleCallback
 import com.clevertap.android.sdk.CleverTapAPI
+import com.clevertap.android.sdk.pushnotification.PushConstants
+import com.clevertap.android.xps.XiaomiPushProvider
 import com.clevertap.mylibrary.MyLibraryClass
 import com.google.firebase.analytics.FirebaseAnalytics
 import java.util.*
@@ -44,6 +46,7 @@ class MyApp : Application()/*, CTPushNotificationListener*/ {
 
         CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler());
 
+        CleverTapAPI.enableXiaomiPushOn(PushConstants.ALL_DEVICES);
         val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseAnalytics.setUserProperty(
             "ct_objectId",
@@ -59,7 +62,12 @@ class MyApp : Application()/*, CTPushNotificationListener*/ {
         )
 
         CleverTapAPI.createNotificationChannel(
-            applicationContext, "test", "test", "test",
+            applicationContext, "test", "Music", "test",
+            NotificationManager.IMPORTANCE_MAX, "YourGroupId", true
+        )
+
+        CleverTapAPI.createNotificationChannel(
+            applicationContext, "chnl_1", "chnl_1", "chnl_1",
             NotificationManager.IMPORTANCE_MAX, "YourGroupId", true
         )
 
