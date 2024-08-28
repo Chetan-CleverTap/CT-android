@@ -10,18 +10,16 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.clevertap.android.pushtemplates.PushTemplateNotificationHandler
 import com.clevertap.android.sdk.ActivityLifecycleCallback
 import com.clevertap.android.sdk.CleverTapAPI
 import com.clevertap.android.sdk.pushnotification.PushConstants
-import com.clevertap.android.xps.XiaomiPushProvider
 import com.clevertap.mylibrary.MyLibraryClass
 import com.google.firebase.analytics.FirebaseAnalytics
-import java.util.*
 
 @SuppressLint("StaticFieldLeak")
 var clevertapDefaultInstance: CleverTapAPI? = null
-
 
 class MyApp : Application()/*, CTPushNotificationListener*/ {
 
@@ -31,26 +29,27 @@ class MyApp : Application()/*, CTPushNotificationListener*/ {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate() {
         ActivityLifecycleCallback.register(this)
 
         super.onCreate()
         registerCallback()
 
-        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG);
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG)
         clevertapDefaultInstance = CleverTapAPI.getDefaultInstance(
             this
         )
         clevertapDefaultInstance?.enableDeviceNetworkInfoReporting(true)
-        MyLibraryClass.getInstance(this);
+        MyLibraryClass.getInstance(this)
 
-        CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler());
+        CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler())
 
-        CleverTapAPI.enableXiaomiPushOn(PushConstants.ALL_DEVICES);
-        val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        CleverTapAPI.enableXiaomiPushOn(PushConstants.ALL_DEVICES)
+        val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
         mFirebaseAnalytics.setUserProperty(
             "ct_objectId",
-            Objects.requireNonNull(CleverTapAPI.getDefaultInstance(this))?.cleverTapID
+            clevertapDefaultInstance?.cleverTapID
         )
 
 //        clevertapDefaultInstance?.ctPushNotificationListener = this;
@@ -71,13 +70,17 @@ class MyApp : Application()/*, CTPushNotificationListener*/ {
             NotificationManager.IMPORTANCE_MAX, "YourGroupId", true
         )
 
-        CleverTapAPI.createNotificationChannel(applicationContext,"sound",
-            "Game of Thrones","Game Of Thrones",NotificationManager.IMPORTANCE_MAX,
-            true,"ring.mp3")
+        CleverTapAPI.createNotificationChannel(
+            applicationContext, "sound",
+            "Game of Thrones", "Game Of Thrones", NotificationManager.IMPORTANCE_MAX,
+            true, "ring.mp3"
+        )
 
-        CleverTapAPI.createNotificationChannel(applicationContext,"sound1",
-            "Game of Thrones","Game Of Thrones",NotificationManager.IMPORTANCE_MAX,
-            true,"ring1.wav")
+        CleverTapAPI.createNotificationChannel(
+            applicationContext, "sound1",
+            "Game of Thrones", "Game Of Thrones", NotificationManager.IMPORTANCE_MAX,
+            true, "ring1.wav"
+        )
 
     }
 

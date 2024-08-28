@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".CustomTemplateActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_story"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="#FFFFFFFF"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_gif_push"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="GIF push"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_story" />
+
+        <Button
+            android:id="@+id/button_progressbar_push"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Progressbar push"
+            app:layout_constraintEnd_toEndOf="@id/button_gif_push"
+            app:layout_constraintStart_toStartOf="@id/button_gif_push"
+            app:layout_constraintTop_toBottomOf="@id/button_gif_push" />
+
+        <Button
+            android:id="@+id/button_pip_video"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="PIP Video Native Display"
+            app:layout_constraintEnd_toEndOf="@id/button_progressbar_push"
+            app:layout_constraintStart_toStartOf="@id/button_progressbar_push"
+            app:layout_constraintTop_toBottomOf="@id/button_progressbar_push" />
+
+        <Button
+            android:id="@+id/button_custom_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Custom Button Native Display"
+            app:layout_constraintEnd_toEndOf="@id/button_pip_video"
+            app:layout_constraintStart_toStartOf="@id/button_pip_video"
+            app:layout_constraintTop_toBottomOf="@id/button_pip_video" />
+
+        <Button
+            android:id="@+id/button_test"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Animated Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/button_custom_button"
+            app:layout_constraintStart_toStartOf="@id/button_custom_button"
+            app:layout_constraintTop_toBottomOf="@id/button_custom_button" />
+
+        <FrameLayout
+            android:id="@+id/pip_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:elevation="10dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

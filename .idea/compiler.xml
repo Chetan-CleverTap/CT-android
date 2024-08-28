@@ -3,6 +3,8 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="CleverTap_SDK_Demo.app" target="11" />
+      <module name="CleverTap_SDK_Demo.CTTemplates" target="11" />
+      <module name="CleverTap_SDK_Demo.instantapp" target="11" />
       <module name="CleverTap_SDK_Demo.mylibrary" target="11" />
     </bytecodeTargetLevel>
   </component>
